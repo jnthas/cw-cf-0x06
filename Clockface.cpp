@@ -41,7 +41,7 @@ void Clockface::setup(CWDateTime *dateTime) {
 
 
 void Clockface::update() 
-{  
+{
   if (millis() - lastMillis >= 1000) {
 
     uint8_t seconds = this->_dateTime->getSecond();
@@ -68,7 +68,7 @@ void Clockface::update()
     Locator::getDisplay()->fillRect(4, 5, 4, 2, color);
 
     lastMillis = millis();
-  }  
+  }
 
 }
 
@@ -94,7 +94,8 @@ void Clockface::refreshTime() {
   Locator::getDisplay()->setCursor(46, 30);
   Locator::getDisplay()->print(minutes);
 
-  Locator::getDisplay()->drawBitmap(55, 18, (_dateTime->isAM() ? AM_SIGN : PM_SIGN), 4, 4, 0xffff);
+  if (!_dateTime->is24hFormat())
+    Locator::getDisplay()->drawBitmap(55, 18, (_dateTime->isAM() ? AM_SIGN : PM_SIGN), 4, 4, 0xffff);
 }
 
 void Clockface::updatePokemon() { 
